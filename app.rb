@@ -2,17 +2,11 @@
 
 require 'rubygems'
 require 'sinatra'
-#require 'sinatra-authentication'
 require 'haml'
-require 'couchrest'
-require 'json'
-
-get '/' do
-  db = CouchRest.database("#{ENV['CLOUDANT_URL']}/users")
-
-  mydoc = { :username => 'djsauble', :password => 'passw0rd' }
-
-  db.save_doc(mydoc)
-
-  "Success!"
-end
+require 'dm-core'
+require 'dm-migrations'
+require 'digest/sha1'
+require 'sinatra-authentication'
+DataMapper.setup(:default, "#{ENV["CLEARDB_DATABASE_URL"]}/forrest")
+DataMapper.auto_upgrade!
+use Rack::Session::Cookie, :secret => 'ENV["CACHE_SECRET"]'
