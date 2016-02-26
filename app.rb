@@ -7,6 +7,8 @@ require 'dm-core'
 require 'dm-migrations'
 require 'digest/sha1'
 require 'sinatra-authentication'
+
+# Definition for the route table
 require_relative 'models/route'
 
 # Connect to our MySQL database
@@ -18,7 +20,8 @@ use Rack::Session::Cookie, :secret => "#{ENV["CACHE_SECRET"]}"
 
 get '/' do
   if logged_in?
-    haml :index
+    url = "#{request.host}/users/#{current_user.id}/#{current_user.hashed_password}#{current_user.salt}"
+    haml :index, :locals => {:url => url}
   else
     redirect '/login'
   end
