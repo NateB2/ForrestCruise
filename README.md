@@ -66,8 +66,6 @@ git commit
 git push heroku master
 ```
 
-Eventually, we may switch to GitHub deployments, so pushing changes to your GitHub repository will automatically deploy to Heroku as well.
-
 Open the app you just deployed.
 
 `heroku open`
