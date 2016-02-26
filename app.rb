@@ -9,4 +9,12 @@ require 'digest/sha1'
 require 'sinatra-authentication'
 DataMapper.setup(:default, "#{ENV["CLEARDB_DATABASE_URL"]}/forrest")
 DataMapper.auto_upgrade!
-use Rack::Session::Cookie, :secret => 'ENV["CACHE_SECRET"]'
+use Rack::Session::Cookie, :secret => "#{ENV["CACHE_SECRET"]}"
+
+get '/' do
+  if current_user.admin?
+    haml :index
+  else
+    redirect '/login'
+  end
+end
