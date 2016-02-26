@@ -47,9 +47,9 @@ Install the dependencies for the app
 
 Once the server boots, open `http://localhost:4567` in your browser.
 
-## Deploying to Production
+## Deployment
 
-Daniel Sauble <djsauble@gmail.com> owns an instance of the app on Heroku. To deploy:
+Daniel Sauble <djsauble@gmail.com> owns an instance of the [app](https://forrest-cruise.herokuapp.com) on Heroku. To deploy:
 
 First, login. You only need to do this once.
 
