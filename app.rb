@@ -20,9 +20,20 @@ use Rack::Session::Cookie, :secret => "#{ENV["CACHE_SECRET"]}"
 
 get '/' do
   if logged_in?
-    url = "/users/#{current_user.id}/#{current_user.hashed_password}#{current_user.salt}"
-    haml :index, :locals => {:url => url}
+    @url = "/users/#{current_user.id}/#{current_user.hashed_password}#{current_user.salt}"
+    haml :index, :locals => {:url => @url}
   else
     redirect '/login'
+  end
+end
+
+post '/users/:id/:token' do
+  @user = DmUser.get(params['id'])
+  if params['token'] == "#{@user.hashed_password}#{@user.salt}"
+    Route.create(
+      :user => params['id'],
+      :points => request.body.read,
+      :created_at => Time.now
+    )
   end
 end
