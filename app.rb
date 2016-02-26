@@ -15,6 +15,6 @@ get '/' do
   if current_user.admin?
     haml :index
   else
-    redirect '/login'
+    #redirect '/login'
   end
 end
