@@ -12,7 +12,7 @@ DataMapper.auto_upgrade!
 use Rack::Session::Cookie, :secret => "#{ENV["CACHE_SECRET"]}"
 
 get '/' do
-  if current_user.admin?
+  if logged_in?
     haml :index
   else
     redirect '/login'
