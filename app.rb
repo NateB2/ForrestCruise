@@ -20,7 +20,7 @@ use Rack::Session::Cookie, :secret => "#{ENV["CACHE_SECRET"]}"
 
 get '/' do
   if logged_in?
-    url = "#{request.host}/users/#{current_user.id}/#{current_user.hashed_password}#{current_user.salt}"
+    url = "/users/#{current_user.id}/#{current_user.hashed_password}#{current_user.salt}"
     haml :index, :locals => {:url => url}
   else
     redirect '/login'
