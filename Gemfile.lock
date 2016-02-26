@@ -60,7 +60,6 @@ DEPENDENCIES
   dm-migrations (= 1.2.0)
   dm-mysql-adapter (= 1.2.0)
   haml (= 4.0.7)
-  rack-flash (= 0.1.2)
   sinatra (= 1.4.7)
   sinatra-authentication (= 0.4.1)
   thin (= 1.6.4)
