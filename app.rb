@@ -8,9 +8,10 @@ require 'dm-migrations'
 require 'dm-aggregates'
 require 'digest/sha1'
 require 'sinatra-authentication'
+require 'json'
 
 # Definition for the route table
-require_relative 'models/route'
+require './models/route'
 
 # Connect to our MySQL database
 DataMapper.setup(:default, "#{ENV["CLEARDB_DATABASE_URL"]}/#{ENV["CLEARDB_DATABASE_NAME"]}?reconnect=true")
@@ -20,19 +21,27 @@ DataMapper.auto_upgrade!
 use Rack::Session::Cookie, :secret => "#{ENV["CACHE_SECRET"]}"
 
 get '/' do
-  if logged_in?
-    # Construct a unique token URL based on password hash and salt
-    @base = request.url
-    @url = "users/#{current_user.id}/#{current_user.hashed_password}#{current_user.salt}"
+  login_required
 
-    # Count the number of routes this user has added to the database
-    @count = Route.count(:user => current_user.id)
-
-    # Render the view
-    haml :index, :locals => {:base => @base, :url => @url, :count => @count}
-  else
-    redirect '/login'
+  # Has user been deleted?
+  if current_user == nil
+    redirect '/logout'
   end
+
+  # Construct a unique token URL based on password hash and salt
+  @base = request.url
+  @url = "users/#{current_user.id}/#{current_user.hashed_password}#{current_user.salt}"
+
+  # Your routes
+  @yours = Route.count(:user => current_user.id)
+
+  # All routes (admin-only)
+  if current_user.admin?
+    @all = Route.count()
+  end
+
+  # Render the view
+  haml :index, :locals => {:base => @base, :url => @url, :yours => @yours, :all => @all}
 end
 
 # Upload a new route to the database
@@ -47,5 +56,35 @@ post '/users/:id/:token' do
       :points => request.body.read,
       :created_at => Time.now
     )
+  end
+end
+
+# Download all routes associated with a user
+get '/users/:id/routes.json', :provides => :json do
+  login_required
+  content_type :json
+
+  if current_user.admin? || current_user.id == params['id'].to_i
+    routes = Route.all(:user => params['id']).map do |r|
+      JSON.parse(r.points)
+    end
+    routes.to_json
+  else
+    status 404
+  end
+end
+
+# Download all routes in the database (admins-only)
+get '/routes.json', :provides => :json do
+  login_required
+  content_type :json
+
+  if current_user.admin?
+    routes = Route.all().map do |r|
+      JSON.parse(r.points)
+    end
+    routes.to_json
+  else
+    status 404
   end
 end

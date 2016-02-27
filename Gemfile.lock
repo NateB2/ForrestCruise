@@ -26,6 +26,7 @@ GEM
     eventmachine (1.0.9.1)
     haml (4.0.7)
       tilt
+    json (1.8.3)
     rack (1.6.4)
     rack-flash (0.1.2)
       rack
@@ -63,6 +64,7 @@ DEPENDENCIES
   dm-migrations (= 1.2.0)
   dm-mysql-adapter (= 1.2.0)
   haml (= 4.0.7)
+  json (= 1.8.3)
   sinatra (= 1.4.7)
   sinatra-authentication (= 0.4.1)
   thin (= 1.6.4)

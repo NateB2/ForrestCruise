@@ -1,6 +1,11 @@
-%a{:href => "/logout"} Log out
 %h2 Statistics
-%p There are #{count} routes in the database
+%p
+  You have #{yours} routes in the database.
+  %a{:href => "/users/#{current_user.id}/routes.json"} Download now
+- if all
+  %p
+    There are #{all} routes total.
+    %a{:href => "/routes.json"} Download now
 %h2 Uploading new routes
 %p
   To upload new routes, POST them to your unique
@@ -10,4 +15,12 @@
   %code
     curl -H "Content-Type: application/json" -X POST -d '{"a":"b","c":"d"}' #{base}#{url}
 %p
-  If your token is compromised, change your password to reset it.
+  If your token is compromised,
+  %a{:href => "/users/#{current_user.id}/edit"} change your password
+  to reset it.
+%h2 Delete account
+%p
+  All data associated with this account will be deleted as well.
+%p
+  %button.danger{:onclick => "confirmUserDelete(#{current_user.id})"} Delete my account
+%script{:src => "helpers.js", :type => "text/javascript"}
