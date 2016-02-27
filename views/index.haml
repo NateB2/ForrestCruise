@@ -1,3 +1,13 @@
 %a{:href => "/logout"} Log out
-
-%a{:href => url} Post URL
+%h2 Statistics
+%p There are #{count} routes in the database
+%h2 Uploading new routes
+%p
+  To upload new routes, POST them to your unique
+  %a{:href => "/#{url}"} token URL.
+  You do not need to be logged in to do this. For example:
+%blockquote
+  %code
+    curl -H "Content-Type: application/json" -X POST -d '{"a":"b","c":"d"}' #{base}#{url}
+%p
+  If your token is compromised, change your password to reset it.

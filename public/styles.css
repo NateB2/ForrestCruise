@@ -1,0 +1,11 @@
+body {
+  font-family: Helvetica, sans-serif;
+}
+
+code {
+  display: block;
+  word-wrap: break-word;
+  padding: 1em;
+  background-color: #f1f1f1;
+  border: solid 1px #cccccc;
+}
