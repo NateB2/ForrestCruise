@@ -1,0 +1,9 @@
+!!!
+%html
+  %head
+    %title Forrest Cruise Dashboard
+    %link{:href => "styles.css", :type => "text/css", :rel => "stylesheet"}
+  %body
+    - if logged_in?
+      %a{:href => "/logout"} Log out
+    = yield
