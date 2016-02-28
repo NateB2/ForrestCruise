@@ -23,6 +23,8 @@ GEM
       dm-core (~> 1.2.0)
     do_mysql (0.10.17)
       data_objects (= 0.10.17)
+    do_mysql (0.10.17-x86-mingw32)
+      data_objects (= 0.10.17)
     eventmachine (1.0.9.1)
     haml (4.0.7)
       tilt
@@ -57,6 +59,7 @@ GEM
 
 PLATFORMS
   ruby
+  x86-mingw32
 
 DEPENDENCIES
   dm-aggregates (= 1.2.0)
@@ -68,3 +71,6 @@ DEPENDENCIES
   sinatra (= 1.4.7)
   sinatra-authentication (= 0.4.1)
   thin (= 1.6.4)
+
+BUNDLED WITH
+   1.11.2
