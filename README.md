@@ -5,9 +5,16 @@ Data service for intelligent running app
 
 ### Prerequisites
 
-* ruby 2.1.2+
-* mysql
+* Ruby 2.1.2+
+* MySQL
 * [Heroku Toolbelt](https://toolbelt.heroku.com) (for deploying to Heroku)
+
+#### Windows users only
+
+In addition to the above, do the following:
+
+* Add bin folders for Ruby and MySQL server to your system path (e.g. `C:\Ruby22\bin`, `C:\Program Files\MySQL\MySQL Server 5.7\bin`)
+* Download [Ruby DevKit](http://rubyinstaller.org/downloads/) and follow the [installation instructions](https://github.com/oneclick/rubyinstaller/wiki/Development-Kit) (Only apply it to the Ruby you downloaded. Ignore the Ruby which comes with Heroku Toolbelt.)
 
 ### Environment setup
 
@@ -40,6 +47,10 @@ Install Bundler (dependency manager for RubyGems)
 Install the dependencies for the app
 
 `bundle install`
+
+#### Windows users only
+
+Note the post-install message about MySQL. Download the given package and copy `lib\opt\libmysql.dll` to your Ruby bin directory.
 
 ### Run the app
 
